@@ -1,7 +1,7 @@
 # i18n-cli
 
 ### For What
-
+![What](./src/images/demo.gif)
 
 ### Usage
 1. update index.js
