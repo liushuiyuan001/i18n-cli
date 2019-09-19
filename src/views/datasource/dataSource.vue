@@ -2,7 +2,7 @@
   <div class="total">
     <el-row class="total-nav">
       <el-col :span="18">
-        <div class="title-font">{{$t('home.dataSourceManagement')}}
+        <div class="title-font">{{$t('dataSourceManagement')}}
           <el-tooltip effect="dark" :content="$t('source.dataSourceDescribe')" placement="right">
             <i class="icon-alert_1"></i>
           </el-tooltip>

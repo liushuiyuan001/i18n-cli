@@ -163,6 +163,7 @@
         </transition>
         <transition name="slide">
           <div class="column-diff" v-if="columnDiffShow">
+            $t('aaa')
             <div class="column-diff-head">
               <div class="column-diff-head-name">{{$t('dict.tableName')}}：{{ ' ' + selectedTableName}}</div>
               <div class="column-diff-head-time">{{$t('dict.lastUpdateTime')}}：2019-05-20 15:03:28 GMT+8</div>
