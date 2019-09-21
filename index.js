@@ -10,24 +10,24 @@ var langList = ['cn.json','en.json']
 var json = require('./src/lang/' + langList[0])
 // totalObj for write file
 var totalObj = {}
-//调用文件遍历方法
+
 fileDisplay(filePath);
 //文件遍历方法
 function fileDisplay(filePath,fileType = '.vue'){
-    //根据文件路径读取文件，返回文件列表(同步)
+    //readdirSync
     var files = fs.readdirSync(filePath)
     files.forEach(function(filename){
-      //获取当前文件的绝对路径
+      //absoulte fileDir
       var filedir = path.join(filePath, filename);
-      //根据文件路径获取文件信息，返回一个fs.Stats对象
+      //get fs.Stats
       var stats = fs.statSync(filedir)
-      var isFile = stats.isFile();//是文件
-      // var isDir = stats.isDirectory();//是文件夹
+      var isFile = stats.isFile();//File
+      // var isDir = stats.isDirectory();//FileFolder
       if(isFile){
         // console.log(filedir);
         var extname=path.extname(filedir);	 
           if(extname === fileType){
-          // 读取文件内容
+          // read all content
           var content = fs.readFileSync(filedir, 'utf-8');
           var match = content.match(/\$t\((\S*)\)/g)
           if(match){
@@ -35,7 +35,7 @@ function fileDisplay(filePath,fileType = '.vue'){
           }
         }
       }else{
-        fileDisplay(filedir);//递归，如果是文件夹，就继续遍历该文件夹下面的文件
+        fileDisplay(filedir);
       }
     });
 }
@@ -46,13 +46,33 @@ function writeObj(content){
   // console.warn(content)
   content.forEach(item => {
     let temp = item.split('.')
-    let cont = temp[temp.length - 1]
-    // filter string taht include `'`
-    cont = cont.replace(/\(/,'')
-    cont = cont.replace(/\'/,'')
+    // one or none category
+    if(temp.length === 1){
+      let cont = temp[temp.length - 1]
+      // filter string taht include `'`
+      cont = cont.replace(/\(/,'')
+      cont = cont.replace(/\'/,'')
+  
+      if(!(cont in json)){
+        totalObj[cont] = ''
+      }
+    }else{
+      let category = temp[0]
+      category = category.replace(/\(/,'')
+      category = category.replace(/\'/,'')
 
-    if(!(cont in json)){
-      totalObj[cont] = ''
+      let cont = temp[temp.length - 1]
+      // filter string taht include `'`
+      cont = cont.replace(/\(/,'')
+      cont = cont.replace(/\'/,'')
+      
+      // if category or cont no exist to write totalObj
+      if(!(category in json) || !(cont in json[category])){
+        let second =  typeof totalObj[category] === 'undefined' ? {} : totalObj[category]
+        second[cont] = ''
+        totalObj[category] = second
+      }
+
     }
   })
 }
@@ -65,11 +85,19 @@ function objToFiles(){
   langList.forEach((item) => {
     var absPath = path.join(writePath, item);
     // append obj
-    var newObj = Object.assign(json,totalObj)
+    var newObj = mergeObject(json,totalObj)
     fs.writeFileSync(absPath, JSON.stringify(newObj, null, '\t'));
   })
 }
 
 
+
+function mergeObject(FirstObj, SecondObj) { // 深度合并对象
+  for (var key in SecondObj) {
+      FirstObj[key] = FirstObj[key] && FirstObj[key].toString() === "[object Object]" ?
+          mergeObject(FirstObj[key], SecondObj[key]) : FirstObj[key] = SecondObj[key];
+  }
+  return FirstObj;
+}
 
 
