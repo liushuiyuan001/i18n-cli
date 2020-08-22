@@ -59,11 +59,11 @@
         <el-form-item :label="$t('source.type')" prop="type">
           <el-select v-model="ruleForm.type" :placeholder="$t('source.type')" style="width:100%;" @change="() => { this.testErrorInfo = '' }">
             <el-option label="mysql" value="mysql"></el-option>
-            <el-option label="kyligence" value="kyligence"></el-option>
+            <el-option label="custom" value="custom"></el-option>
             <el-option label="csv" value="csv"></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item :label="$t('source.hiveSource')" prop="parameter_ext" v-if="ruleForm.type === 'kyligence'">
+        <el-form-item :label="$t('source.hiveSource')" prop="parameter_ext" v-if="ruleForm.type === 'custom'">
           <el-select v-model="ruleForm.parameter_ext" placeholder="" style="width:100%;">
             <el-option :label="item.name" :value="item.id" v-for="(item,index) in hiveList" :key="index"></el-option>
           </el-select>
@@ -76,10 +76,10 @@
           </span>
           <el-input v-model="ruleForm.parameter" :placeholder="placeholderParameter[ruleForm.type]"></el-input>
         </el-form-item>
-        <el-form-item :label="$t('source.username')" prop="username" v-show="ruleForm.type === ''|| ruleForm.type === 'mysql' || ruleForm.type === 'kyligence'">
+        <el-form-item :label="$t('source.username')" prop="username" v-show="ruleForm.type === ''|| ruleForm.type === 'mysql' || ruleForm.type === 'custom'">
           <el-input v-model="ruleForm.username"></el-input>
         </el-form-item>
-        <el-form-item :label="$t('source.password')" prop="password" v-show="ruleForm.type === ''|| ruleForm.type === 'mysql' || ruleForm.type === 'kyligence'">
+        <el-form-item :label="$t('source.password')" prop="password" v-show="ruleForm.type === ''|| ruleForm.type === 'mysql' || ruleForm.type === 'custom'">
           <el-input v-model="ruleForm.password"></el-input>
         </el-form-item>
       </el-form>

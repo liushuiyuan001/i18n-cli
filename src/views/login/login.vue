@@ -62,8 +62,5 @@
         </div>
       </div>
     </div>
-    <div class="footer">
-      <span>© 2019 <a href="http://kyligence.io"> Kyligence Inc.</a> All rights reserved</span>
-    </div>
   </div>
 </template>
