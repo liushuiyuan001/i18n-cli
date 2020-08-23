@@ -8,6 +8,7 @@ var langList = ['cn.json', 'en.json']
 
 // totalObj for write file
 var totalObj = {}
+var oldObj = require('./src/lang/' + langList[0])
 
 folderView(filePath);
 
@@ -42,12 +43,9 @@ function folderView(filePath, fileType = '.vue') {
 
 // write content to obj
 function writeObj(content) {
-      console.log(content)
       // get string 
       content = content.map(item => item.substring(4, item.length - 2))
-      console.log(content)
 
-      // console.warn(content)
       content.forEach(item => {
             let temp = item.split('.')
             // one or none category
@@ -75,8 +73,10 @@ function jsonToFile() {
             return
       }
 
+      const mergedObj = Object.assign({},totalObj, oldObj)
+
       for (const fileName of langList) {
             var absPath = path.join(writePath, fileName);
-            fs.writeFileSync(absPath, JSON.stringify(totalObj, null, '\t'));    
+            fs.writeFileSync(absPath, JSON.stringify(mergedObj, null, '\t'));    
       }
 }
