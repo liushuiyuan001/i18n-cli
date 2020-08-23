@@ -19,7 +19,7 @@
         </div>
         <div class="dict-cont-left-list" v-show="!isShowSourceTable">
           <div class="dict-cont-left-list-search" v-if="dataSourceInner.length > 0">
-            <el-input :placeholder="$t('source.searchSource')" v-model="filterInnerText" prefix-icon="el-icon-search"> </el-input>
+            <el-input :placeholder="$t('source.searchSource1')" v-model="filterInnerText" prefix-icon="el-icon-search"> </el-input>
           </div>
           <div class="dict-cont-left-list-empty" v-if="dataSourceInner.length === 0">
             <i class="icon-sample"></i>
