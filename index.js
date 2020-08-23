@@ -47,23 +47,18 @@ function writeObj(content) {
       content = content.map(item => item.substring(4, item.length - 2))
 
       content.forEach(item => {
-            let temp = item.split('.')
-            // one or none category
-            if (temp.length === 1) {
-
-                  let cont = temp[temp.length - 1]
-                  totalObj[cont] = ''
-                  
-            } else {
-                  
-                  let category = temp[0]
-                  let cont = temp[temp.length - 1]
-
-                  // write totalObj
-                  let second = typeof totalObj[category] === 'undefined' ? {} : totalObj[category]
-                  second[cont] = ''
-                  totalObj[category] = second
-            }
+            let keys = item.split('.')
+            // init: one or more category
+            keys.reduce((acc,curr,index) => {
+                  if(!acc[curr]) {
+                     if(index === keys.length - 1){
+                        acc[curr] = ''
+                     }else {
+                        acc[curr] = {}
+                     }
+                  } 
+                  return acc[curr]
+            },totalObj) 
       })
 }
 

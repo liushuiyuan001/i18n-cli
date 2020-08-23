@@ -1,4 +1,4 @@
-# i18n-cli
+# i18n-extractor
 
 ### For What
 ![What](./src/images/demo.gif)
@@ -15,4 +15,4 @@ var langList = ['cn.json','en.json'] // to yours
 node index.js
 ```
 3. Feature
-- [ ] 变量多级嵌套(a.b.c)
+- [X] 变量多级嵌套(a.b.c)
