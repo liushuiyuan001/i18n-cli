@@ -42,28 +42,24 @@ function folderView(filePath, fileType = '.vue') {
 
 // write content to obj
 function writeObj(content) {
+      console.log(content)
       // get string 
-      content = content.map(item => item.substring(2, item.length - 2))
+      content = content.map(item => item.substring(4, item.length - 2))
+      console.log(content)
+
       // console.warn(content)
       content.forEach(item => {
             let temp = item.split('.')
             // one or none category
             if (temp.length === 1) {
-                  let cont = temp[temp.length - 1]
-                  // filter string taht include `'`
-                  cont = cont.replace(/\(/, '')
-                  cont = cont.replace(/\'/, '')
 
+                  let cont = temp[temp.length - 1]
                   totalObj[cont] = ''
+                  
             } else {
+                  
                   let category = temp[0]
-                  category = category.replace(/\(/, '')
-                  category = category.replace(/\'/, '')
-
                   let cont = temp[temp.length - 1]
-                  // filter string taht include `'`
-                  cont = cont.replace(/\(/, '')
-                  cont = cont.replace(/\'/, '')
 
                   // write totalObj
                   let second = typeof totalObj[category] === 'undefined' ? {} : totalObj[category]

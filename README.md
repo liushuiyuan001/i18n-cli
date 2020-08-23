@@ -14,3 +14,5 @@ var langList = ['cn.json','en.json'] // to yours
 ```
 node index.js
 ```
+3. Feature
+- [ ] 变量多级嵌套(a.b.c)
